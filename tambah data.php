@@ -19,7 +19,7 @@ if( isset($_POST["submit"]) ){
         echo "
         <script>
         alert('data gagal ditambahkan');
-        document.location.href = 'home.php'
+        document.location.href = 'tambah data.php'
         </script>
         ";
     }

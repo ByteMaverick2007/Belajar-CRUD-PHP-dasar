@@ -3,10 +3,8 @@ require("function.php");
 // Ambil data dari data base
 $murid = query("SELECT * FROM murid");
 
-
 // ketika tombol cari ditekan
-
-if( isset($_POST["cari"])){
+if (isset($_POST["cari"])) {
     $murid = cari($_POST["search"]);
 }
 
@@ -17,14 +15,53 @@ if( isset($_POST["cari"])){
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewp   ort" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <title>Document</title>
 
     <style>
-        img{
-            width: 50px;
+        .card {
+            margin-bottom: 10px;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+            background-color: cadetblue;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            padding: 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .btn {
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -43,43 +80,25 @@ if( isset($_POST["cari"])){
     </nav>
 
     <div class="container mt-2">
-
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Aksi</th>
-                    <th scope="col">Foto</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Eskul</th>
-                    <th scope="col">Hobi</th>
-                </tr>
-            </thead>
-
+        <div class="row">
             <!-- Looping data dari database -->
             <?php foreach($murid as $row) : ?>
-            <thead>
-
-                <td>
-                    <a class="btn btn-primary" href="ubah.php?id=<?= $row["id"]; ?>">ubah</a>
-                    <a class="btn btn-danger" href="hapus.php?id=<?= $row["id"]; ?>"
-                        onclick="return confirm('yakin?');">hapus</a>
-                </td>
-                <td><img src="img/<?= $row["Foto"];?>"></td>
-                <td><?= $row["Nama"]; ?></td>
-                <td><?= $row["Eskul"]; ?></td>
-                <td><?= $row["Hobi"]; ?></td>
-
-                <?php endforeach; ?>
-            </thead>
-        </table>
-
-
-
-
-
-
+            <div class="col-md-3">
+                <div class="card mx-0">
+                    <img class="card-img-top" src="img/<?= $row["Foto"]; ?>" alt="<?= $row["Nama"]; ?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $row["Nama"]; ?></h5>
+                        <p class="card-text">Eskul: <?= $row["Eskul"]; ?></p>
+                        <p class="card-text">Hobi: <?= $row["Hobi"]; ?></p>
+                        <a href="ubah.php?id=<?= $row["id"]; ?>" class="btn btn-primary">Ubah</a>
+                        <a href="hapus.php?id=<?= $row["id"]; ?>" class="btn btn-danger" onclick="return confirm('Yakin?');">Hapus</a>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
     </div>
+
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
